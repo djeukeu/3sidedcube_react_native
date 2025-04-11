@@ -3,15 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PokemonDetail from '../screens/PokemonDetail';
 import PokemonList from '../screens/PokemonList';
 
-/**
- *
- * App Navigation configuration
- *
- */
-
 const Stack = createNativeStackNavigator();
 
-const AppNavigator = () => {
+const AppNavigation = () => {
   return (
     <Stack.Navigator initialRouteName="PokemonList">
       <Stack.Screen name="PokemonList" component={PokemonList} />
@@ -20,4 +14,4 @@ const AppNavigator = () => {
   );
 };
 
-export default AppNavigator;
+export default AppNavigation;
