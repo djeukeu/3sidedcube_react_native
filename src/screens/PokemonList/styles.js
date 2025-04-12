@@ -11,6 +11,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 12,
   },
+  searchBar: {
+    backgroundColor: MD2Colors.grey300,
+    marginVertical: 16,
+  },
+  searchBarInput: {
+    color: MD2Colors.black,
+  },
   searchButton: {
     marginLeft: 'auto',
     marginRight: 16,
