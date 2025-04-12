@@ -2,10 +2,10 @@ import React, { useRef } from 'react';
 import { Icon } from '@rneui/themed';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { MD2Colors } from 'react-native-paper';
+import { Searchbar } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styles from './styles';
 import PokemonItem from '../../components/PokemonItem';
-import { Searchbar } from 'react-native-paper';
 
 const PokemonList = () => {
   const insets = useSafeAreaInsets();
