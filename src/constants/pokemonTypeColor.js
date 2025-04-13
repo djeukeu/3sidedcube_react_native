@@ -1,3 +1,11 @@
+/*
+ * Determine a Pokémon's color from its type
+ *
+ * Pokemon Type Color
+ * https://gist.github.com/apaleslimghost/0d25ec801ca4fc43317bcff298af43c3
+ *
+ */
+
 const pokemonTypeColor = {
   normal: '#A8A87A',
   fire: '#F04E38',

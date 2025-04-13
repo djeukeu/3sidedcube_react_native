@@ -1,35 +1,51 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Chip } from 'react-native-paper';
 import styles from './styles';
+import pokemonTypeColor from '../../constants/pokemonTypeColor';
+import {
+  dm2cmConverter,
+  hg2kgConverter,
+  hex2rgba,
+} from '../../utils/unitConverter';
 
-const PokemonItem = () => {
+const PokemonItem = ({ item }) => {
+  const { name, height, weight, types, sprite } = item;
+  const pokemonColor = pokemonTypeColor[types[0]];
+
   return (
-    <View style={styles.item}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => {}}
+      style={{ ...styles.item, backgroundColor: hex2rgba(pokemonColor) }}>
       <View style={styles.attributeWrapper}>
-        <Text style={styles.name}>PokemonItem</Text>
+        <Text style={styles.name}>{name}</Text>
         <Text style={styles.attributeKey}>
-          Height: <Text style={styles.attributeValue}>2dm</Text>
+          Height:{' '}
+          <Text style={styles.attributeValue}>{dm2cmConverter(height)} cm</Text>
         </Text>
         <Text style={styles.attributeKey}>
-          Weight: <Text style={styles.attributeValue}>2dm</Text>
+          Weight:{' '}
+          <Text style={styles.attributeValue}>{hg2kgConverter(weight)} kg</Text>
         </Text>
         <View style={styles.typeWrapper}>
-          <Chip style={styles.type} textStyle={styles.typeText}>
-            Type 1
-          </Chip>
-          <Chip style={styles.type} textStyle={styles.typeText}>
-            Type 1
-          </Chip>
+          {types.map((type, index) => (
+            <Chip
+              key={index}
+              style={{
+                ...styles.type,
+                backgroundColor: pokemonColor,
+              }}
+              textStyle={styles.typeText}>
+              {type}
+            </Chip>
+          ))}
         </View>
       </View>
       <View style={styles.imageWrapper}>
-        <Image
-          source={require('../../assets/images/1.png')}
-          style={styles.image}
-        />
+        <Image source={{ uri: sprite }} style={styles.image} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

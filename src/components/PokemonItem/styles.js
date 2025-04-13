@@ -3,7 +3,7 @@ import { MD2Colors } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   attributeKey: {
-    color: MD2Colors.grey300,
+    color: MD2Colors.grey200,
     fontFamily: 'Lato-Regular',
     fontSize: 14,
   },
@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     width: 150,
   },
   item: {
-    backgroundColor: MD2Colors.red800,
     borderRadius: 13,
     flexDirection: 'row',
     marginVertical: 4,
@@ -36,9 +35,9 @@ const styles = StyleSheet.create({
     color: MD2Colors.white,
     fontFamily: 'Lato-Bold',
     fontSize: 16,
+    textTransform: 'capitalize',
   },
   type: {
-    backgroundColor: MD2Colors.red200,
     marginRight: 8,
   },
   typeText: {
