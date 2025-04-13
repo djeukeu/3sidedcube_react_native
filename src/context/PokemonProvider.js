@@ -8,6 +8,7 @@ const OFFSET = 20;
 export const PokemonContext = createContext({
   pokemons: [],
   getPokemonList: async () => {},
+  getPokemonDetail: async () => {},
 });
 
 const PokemonProvider = (props) => {
@@ -43,8 +44,21 @@ const PokemonProvider = (props) => {
     });
   }, []);
 
+  const getPokemonDetail = useCallback(async (id) => {
+    const response = await axios.get(`${config.api}pokemon/${id}`);
+    return {
+      id: response.data.id,
+      name: response.data.name,
+      height: response.data.height,
+      weight: response.data.weight,
+      types: response.data.types.map((el) => el.type.name),
+      sprite: response.data.sprites.front_default,
+    };
+  }, []);
+
   return (
-    <PokemonContext.Provider value={{ pokemons: pokemons, getPokemonList }}>
+    <PokemonContext.Provider
+      value={{ pokemons: pokemons, getPokemonList, getPokemonDetail }}>
       {props.children}
     </PokemonContext.Provider>
   );

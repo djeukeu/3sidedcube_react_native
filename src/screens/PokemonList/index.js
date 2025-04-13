@@ -11,7 +11,7 @@ import { MD2Colors } from 'react-native-paper';
 import { Searchbar } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styles from './styles';
-import Loading from '../../components/Loading';
+import Loader from '../../components/Loader';
 import PokemonItem from '../../components/PokemonItem';
 import appName from '../../constants/appname';
 import { PokemonContext } from '../../context/PokemonProvider';
@@ -79,7 +79,7 @@ const PokemonList = () => {
         }}
       />
       {loading ? (
-        <Loading size="large" />
+        <Loader size="large" />
       ) : (
         <FlatList
           data={pokemonDataList}
@@ -90,7 +90,7 @@ const PokemonList = () => {
           }
           onEndReached={fetchMore}
           onEndReachedThreshold={0.1}
-          ListFooterComponent={moreLoading ? <Loading size="small" /> : null}
+          ListFooterComponent={moreLoading ? <Loader size="small" /> : null}
         />
       )}
     </View>

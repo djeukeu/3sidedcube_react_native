@@ -2,7 +2,7 @@ import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import styles from './styles';
 
-const Loading = (props) => {
+const Loader = (props) => {
   return (
     <ActivityIndicator
       {...props}
@@ -12,4 +12,4 @@ const Loading = (props) => {
   );
 };
 
-export default Loading;
+export default Loader;

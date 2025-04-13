@@ -13,7 +13,7 @@ export const hg2kgConverter = (hgValue) => {
 };
 
 // Hex to RGBA converter
-export const hex2rgba = (hex) => {
+export const hex2rgba = (hex = '#fff') => {
   const { red, blue, green, alpha } = hexRgb(hex, { alpha: 0.75 });
   const rgba = `rgba(${red},${green},${blue},${alpha})`;
   return rgba;
