@@ -23,11 +23,6 @@ const styles = StyleSheet.create({
   searchBarInput: {
     color: MD2Colors.black,
   },
-  // searchButton: {
-  //   marginLeft: 'auto',
-  //   marginRight: 16,
-  //   marginVertical: 16,
-  // },
 });
 
 export default styles;

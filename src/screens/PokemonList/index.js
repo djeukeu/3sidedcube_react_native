@@ -13,6 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styles from './styles';
 import Loading from '../../components/Loading';
 import PokemonItem from '../../components/PokemonItem';
+import appName from '../../constants/appname';
 import { PokemonContext } from '../../context/PokemonProvider';
 
 const PokemonList = () => {
@@ -62,7 +63,7 @@ const PokemonList = () => {
         paddingTop: insets.top,
         paddingBottom: insets.bottom,
       }}>
-      <Text style={styles.appName}>PokéAPI</Text>
+      <Text style={styles.appName}>{appName}</Text>
       <Searchbar
         ref={searchRef}
         placeholder="Search pokemon"
