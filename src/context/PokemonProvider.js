@@ -11,6 +11,23 @@ export const PokemonContext = createContext({
   getPokemonDetail: async () => {},
 });
 
+// pokemon data structure
+const pokemonDataFormat = (data) => {
+  return {
+    id: data.id,
+    name: data.name,
+    height: data.height,
+    weight: data.weight,
+    types: data.types.map((el) => el.type.name),
+    abilities: data.abilities.map((el) => el.ability.name),
+    sprite: data.sprites.front_default,
+    species: data.species.name,
+    stats: data.stats.map((el) => {
+      return { name: el.stat.name, value: el.base_stat };
+    }),
+  };
+};
+
 const PokemonProvider = (props) => {
   const [pokemons, setPokemons] = useState([]);
 
@@ -25,17 +42,7 @@ const PokemonProvider = (props) => {
         setPokemons((prevState) => {
           // update the pokemon list and remove any possible duplicates
           const updatedState = _.uniqBy(
-            [
-              ...prevState,
-              {
-                id: pokemonData.data.id,
-                name: pokemonData.data.name,
-                height: pokemonData.data.height,
-                weight: pokemonData.data.weight,
-                types: pokemonData.data.types.map((el) => el.type.name),
-                sprite: pokemonData.data.sprites.front_default,
-              },
-            ],
+            [...prevState, pokemonDataFormat(pokemonData.data)],
             'id'
           );
           return updatedState;
@@ -46,19 +53,7 @@ const PokemonProvider = (props) => {
 
   const getPokemonDetail = useCallback(async (id) => {
     const response = await axios.get(`${config.api}pokemon/${id}`);
-    return {
-      id: response.data.id,
-      name: response.data.name,
-      height: response.data.height,
-      weight: response.data.weight,
-      types: response.data.types.map((el) => el.type.name),
-      abilities: response.data.abilities.map((el) => el.ability.name),
-      sprite: response.data.sprites.front_default,
-      species: response.data.species.name,
-      stats: response.data.stats.map((el) => {
-        return { name: el.stat.name, value: el.base_stat };
-      }),
-    };
+    return pokemonDataFormat(response.data);
   }, []);
 
   return (

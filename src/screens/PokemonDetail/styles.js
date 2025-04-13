@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     color: MD2Colors.black,
     fontFamily: 'Lato-Regular',
     fontSize: 14,
+    textTransform: 'capitalize',
   },
   content: {
     paddingHorizontal: 12,
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 4,
-    maxWidth: '60%',
+    maxWidth: '80%',
   },
   contentTitle: {
     color: MD2Colors.black,
@@ -52,24 +53,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
-  statsValue: {
-    marginLeft: 'auto',
-    marginRight: 16,
-  },
-  statsWrapper: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 4,
-  },
-  type: {
-    marginRight: 8,
-  },
-  typeText: {
-    color: MD2Colors.white,
-    textTransform: 'capitalize',
-  },
-  typeWrapper: { flexDirection: 'row', marginVertical: 8 },
 });
 
 export default styles;

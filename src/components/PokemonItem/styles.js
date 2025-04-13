@@ -37,13 +37,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textTransform: 'capitalize',
   },
-  type: {
-    marginRight: 8,
-  },
-  typeText: {
-    color: MD2Colors.white,
-  },
-  typeWrapper: { flexDirection: 'row' },
 });
 
 export default styles;

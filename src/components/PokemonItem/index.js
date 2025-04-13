@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { Chip } from 'react-native-paper';
 import styles from './styles';
 import pokemonTypeColor from '../../constants/pokemonTypeColor';
 import {
@@ -9,6 +8,7 @@ import {
   hg2kgConverter,
   hex2rgba,
 } from '../../utils/unitConverter';
+import PokemonType from '../PokemonType';
 
 const PokemonItem = ({ item }) => {
   const pokemonColor = pokemonTypeColor[item.types[0]];
@@ -35,19 +35,7 @@ const PokemonItem = ({ item }) => {
             {hg2kgConverter(item.weight)}
           </Text>
         </Text>
-        <View style={styles.typeWrapper}>
-          {item.types.map((type, index) => (
-            <Chip
-              key={index}
-              style={{
-                ...styles.type,
-                backgroundColor: pokemonColor,
-              }}
-              textStyle={styles.typeText}>
-              {type}
-            </Chip>
-          ))}
-        </View>
+        <PokemonType types={item.types} bgColor={pokemonColor} />
       </View>
       <View style={styles.imageWrapper}>
         <Image source={{ uri: item.sprite }} style={styles.image} />
