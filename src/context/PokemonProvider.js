@@ -52,7 +52,12 @@ const PokemonProvider = (props) => {
       height: response.data.height,
       weight: response.data.weight,
       types: response.data.types.map((el) => el.type.name),
+      abilities: response.data.abilities.map((el) => el.ability.name),
       sprite: response.data.sprites.front_default,
+      species: response.data.species.name,
+      stats: response.data.stats.map((el) => {
+        return { name: el.stat.name, value: el.base_stat };
+      }),
     };
   }, []);
 

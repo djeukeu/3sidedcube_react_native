@@ -26,13 +26,13 @@ const PokemonItem = ({ item }) => {
         <Text style={styles.attributeKey}>
           Height:{' '}
           <Text style={styles.attributeValue}>
-            {dm2cmConverter(item.height)} cm
+            {dm2cmConverter(item.height)}
           </Text>
         </Text>
         <Text style={styles.attributeKey}>
           Weight:{' '}
           <Text style={styles.attributeValue}>
-            {hg2kgConverter(item.weight)} kg
+            {hg2kgConverter(item.weight)}
           </Text>
         </Text>
         <View style={styles.typeWrapper}>

@@ -3,13 +3,13 @@ import hexRgb from 'hex-rgb';
 // Decimeters to Centimeters converter
 export const dm2cmConverter = (decimeterValue) => {
   const centimeterValue = decimeterValue * 10;
-  return centimeterValue;
+  return centimeterValue + ' cm';
 };
 
 // Hectogram to Kilogram converter
 export const hg2kgConverter = (hgValue) => {
   const kgValue = hgValue / 10;
-  return kgValue;
+  return kgValue + ' kg';
 };
 
 // Hex to RGBA converter
