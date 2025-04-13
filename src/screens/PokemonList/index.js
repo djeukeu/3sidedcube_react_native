@@ -5,14 +5,8 @@ import React, {
   useCallback,
   useContext,
 } from 'react';
-import { Icon } from '@rneui/themed';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  RefreshControl,
-} from 'react-native';
+import _ from 'lodash';
+import { View, Text, FlatList, RefreshControl } from 'react-native';
 import { MD2Colors } from 'react-native-paper';
 import { Searchbar } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -31,6 +25,11 @@ const PokemonList = () => {
   const searchRef = useRef(null);
   const pokemonCtx = useContext(PokemonContext);
   const pokemons = pokemonCtx.pokemons;
+
+  // Filter Pokémon data list based on search query
+  const pokemonDataList = _.filter(pokemons, (pokemon) =>
+    pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -63,12 +62,6 @@ const PokemonList = () => {
         paddingTop: insets.top,
         paddingBottom: insets.bottom,
       }}>
-      <TouchableOpacity
-        style={styles.searchButton}
-        activeOpacity={0.73}
-        onPress={() => {}}>
-        <Icon name="search" size={24} color={MD2Colors.black} />
-      </TouchableOpacity>
       <Text style={styles.appName}>PokéAPI</Text>
       <Searchbar
         ref={searchRef}
@@ -88,7 +81,7 @@ const PokemonList = () => {
         <Loading size="large" />
       ) : (
         <FlatList
-          data={pokemons}
+          data={pokemonDataList}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <PokemonItem item={item} />}
           refreshControl={

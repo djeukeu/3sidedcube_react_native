@@ -9,6 +9,8 @@ const styles = StyleSheet.create({
     color: MD2Colors.black,
     fontFamily: 'Lato-Black',
     fontSize: 24,
+    marginBottom: 8,
+    marginTop: 24,
   },
   screen: {
     flex: 1,
@@ -21,11 +23,11 @@ const styles = StyleSheet.create({
   searchBarInput: {
     color: MD2Colors.black,
   },
-  searchButton: {
-    marginLeft: 'auto',
-    marginRight: 16,
-    marginVertical: 16,
-  },
+  // searchButton: {
+  //   marginLeft: 'auto',
+  //   marginRight: 16,
+  //   marginVertical: 16,
+  // },
 });
 
 export default styles;
