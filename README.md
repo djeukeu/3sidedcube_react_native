@@ -1,6 +1,8 @@
 ## Requirements
 
 - Create the `.env file` for the project and add the api url
+- Install the require node version as specified in the `.nvmrc file`
+- Install the require Ruby version
 
 ## Setup GuideLine
 
