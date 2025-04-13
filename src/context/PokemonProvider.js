@@ -34,29 +34,37 @@ const PokemonProvider = (props) => {
   const [pokemonsCount, setPokemonsCount] = useState([]);
 
   const getPokemonList = useCallback(async (offset = 0, limit = OFFSET) => {
-    // Get the list of Pokemons with the given offset value.
-    const response = await axios.get(
-      `${config.api}pokemon?offset=${offset * OFFSET}&limit=${limit}`
-    );
-    setPokemonsCount(response.data.count);
-    response.data.results.map((pokemon) => {
-      // Get Pokemon details
-      axios.get(pokemon.url).then((pokemonData) => {
-        setPokemons((prevState) => {
-          // update the pokemon list and remove any possible duplicates
-          const updatedState = _.uniqBy(
-            [...prevState, pokemonDataFormat(pokemonData.data)],
-            'id'
-          );
-          return updatedState;
+    try {
+      // Get the list of Pokemons with the given offset value.
+      const response = await axios.get(
+        `${config.api}pokemon?offset=${offset * OFFSET}&limit=${limit}`
+      );
+      setPokemonsCount(response.data.count);
+      response.data.results.map((pokemon) => {
+        // Get Pokemon details
+        axios.get(pokemon.url).then((pokemonData) => {
+          setPokemons((prevState) => {
+            // update the pokemon list and remove any possible duplicates
+            const updatedState = _.uniqBy(
+              [...prevState, pokemonDataFormat(pokemonData.data)],
+              'id'
+            );
+            return updatedState;
+          });
         });
       });
-    });
+    } catch (error) {
+      throw error.message;
+    }
   }, []);
 
   const getPokemonDetail = useCallback(async (id) => {
-    const response = await axios.get(`${config.api}pokemon/${id}`);
-    return pokemonDataFormat(response.data);
+    try {
+      const response = await axios.get(`${config.api}pokemon/${id}`);
+      return pokemonDataFormat(response.data);
+    } catch (error) {
+      throw error.message;
+    }
   }, []);
 
   return (

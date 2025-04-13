@@ -7,12 +7,13 @@ import React, {
 } from 'react';
 import { FlashList } from '@shopify/flash-list';
 import _ from 'lodash';
-import { View, Text, RefreshControl } from 'react-native';
+import { View, Text, RefreshControl, Alert } from 'react-native';
 import { MD2Colors } from 'react-native-paper';
 import { Searchbar } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styles from './styles';
 import Loader from '../../components/Loader';
+import NoData from '../../components/NoData';
 import PokemonItem from '../../components/PokemonItem';
 import appName from '../../constants/appName';
 import { PokemonContext } from '../../context/PokemonProvider';
@@ -43,9 +44,15 @@ const PokemonList = () => {
 
   useEffect(() => {
     setLoading(true);
-    pokemonCtx.getPokemonList(offset).then(() => {
-      setLoading(false);
-    });
+    pokemonCtx
+      .getPokemonList(offset)
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        Alert.alert('Error', error, [{ text: 'Ok' }]);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -82,6 +89,8 @@ const PokemonList = () => {
       />
       {loading ? (
         <Loader size="large" />
+      ) : pokemonDataList.length === 0 ? (
+        <NoData />
       ) : (
         <FlashList
           data={pokemonDataList}
