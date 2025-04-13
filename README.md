@@ -1,7 +1,7 @@
 ## Requirements
 
 - Create the `.env file` for the project and add the api url
-  
+
 ## Setup GuideLine
 
 - Install packages, using: yarn
