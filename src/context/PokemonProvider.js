@@ -7,6 +7,7 @@ const OFFSET = 20;
 
 export const PokemonContext = createContext({
   pokemons: [],
+  pokemonsCount: 0,
   getPokemonList: async () => {},
   getPokemonDetail: async () => {},
 });
@@ -30,12 +31,14 @@ const pokemonDataFormat = (data) => {
 
 const PokemonProvider = (props) => {
   const [pokemons, setPokemons] = useState([]);
+  const [pokemonsCount, setPokemonsCount] = useState([]);
 
   const getPokemonList = useCallback(async (offset = 0, limit = OFFSET) => {
     // Get the list of Pokemons with the given offset value.
     const response = await axios.get(
       `${config.api}pokemon?offset=${offset * OFFSET}&limit=${limit}`
     );
+    setPokemonsCount(response.data.count);
     response.data.results.map((pokemon) => {
       // Get Pokemon details
       axios.get(pokemon.url).then((pokemonData) => {
@@ -58,7 +61,12 @@ const PokemonProvider = (props) => {
 
   return (
     <PokemonContext.Provider
-      value={{ pokemons: pokemons, getPokemonList, getPokemonDetail }}>
+      value={{
+        pokemons: pokemons,
+        pokemonsCount,
+        getPokemonList,
+        getPokemonDetail,
+      }}>
       {props.children}
     </PokemonContext.Provider>
   );

@@ -4,7 +4,7 @@ import { Icon } from '@rneui/base';
 import { Text, TouchableOpacity, Platform } from 'react-native';
 import { MD2Colors } from 'react-native-paper';
 import styles from './styles';
-import appName from '../../constants/appname';
+import appName from '../../constants/appName';
 
 const BackButton = ({ buttonColor = MD2Colors.white }) => {
   const navigation = useNavigation();

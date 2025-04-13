@@ -5,15 +5,16 @@ import React, {
   useCallback,
   useContext,
 } from 'react';
+import { FlashList } from '@shopify/flash-list';
 import _ from 'lodash';
-import { View, Text, FlatList, RefreshControl } from 'react-native';
+import { View, Text, RefreshControl } from 'react-native';
 import { MD2Colors } from 'react-native-paper';
 import { Searchbar } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styles from './styles';
 import Loader from '../../components/Loader';
 import PokemonItem from '../../components/PokemonItem';
-import appName from '../../constants/appname';
+import appName from '../../constants/appName';
 import { PokemonContext } from '../../context/PokemonProvider';
 
 const PokemonList = () => {
@@ -26,6 +27,7 @@ const PokemonList = () => {
   const searchRef = useRef(null);
   const pokemonCtx = useContext(PokemonContext);
   const pokemons = pokemonCtx.pokemons;
+  const estimatedDataSize = pokemonCtx.pokemonsCount;
 
   // Filter Pokémon data list based on search query
   const pokemonDataList = _.filter(pokemons, (pokemon) =>
@@ -81,9 +83,10 @@ const PokemonList = () => {
       {loading ? (
         <Loader size="large" />
       ) : (
-        <FlatList
+        <FlashList
           data={pokemonDataList}
           keyExtractor={(item) => item.id}
+          estimatedItemSize={estimatedDataSize}
           renderItem={({ item }) => <PokemonItem item={item} />}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

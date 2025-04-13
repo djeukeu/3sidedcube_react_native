@@ -66,9 +66,11 @@ const PokemonDetail = (props) => {
         <BackButton />
         <Text style={styles.name}>{pokemon?.name}</Text>
         <PokemonType types={pokemon?.types} bgColor={pokemonColor} />
-        <View style={styles.imageWrapper}>
-          <Image source={{ uri: pokemon?.sprite }} style={styles.image} />
-        </View>
+        {pokemon?.sprite && (
+          <View style={styles.imageWrapper}>
+            <Image source={{ uri: pokemon?.sprite }} style={styles.image} />
+          </View>
+        )}
       </View>
       <View style={styles.content}>
         <Text style={styles.contentTitle}>About</Text>
