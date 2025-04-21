@@ -4,7 +4,7 @@ run-name: ${{ github.actor }} triggered the Android Beta Deployment
 on:
   push:
     branches:
-      - develo
+      - develop
 
 env:
   APP_ENV: ${{ vars.APP_ENV }}
