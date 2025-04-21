@@ -1,4 +1,4 @@
-package com.react_native_task;
+package com.pokeapi.co;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

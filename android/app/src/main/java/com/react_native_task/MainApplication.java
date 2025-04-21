@@ -1,4 +1,4 @@
-package com.react_native_task;
+package com.pokeapi.co;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

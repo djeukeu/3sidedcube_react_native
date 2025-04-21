@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.react_native_task"
+    namespace "com.pokeapi.co"
     defaultConfig {
-        applicationId "com.react_native_task"
+        applicationId "com.pokeapi.co"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
