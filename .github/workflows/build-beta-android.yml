@@ -1,0 +1,99 @@
+name: Android Beta App Deployment
+run-name: ${{ github.actor }} triggered the Android Beta Deployment
+
+on:
+  push:
+    branches:
+      - develop
+
+env:
+  APP_ENV: ${{ vars.APP_ENV }}
+  FIREBASE_ANDROID_TEST_GROUP: ${{ vars.FIREBASE_ANDROID_TEST_GROUP }}
+  PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
+  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  FIREBASE_ANDROID_ID: ${{ secrets.FIREBASE_ANDROID_ID }}
+
+jobs:
+  android:
+    environment: 'STAGING'
+    name: Build Android
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Version Code
+        id: version_code
+        run: |
+          echo "::set-output name=number::$(git rev-list --count HEAD)"
+      - uses: xt0rted/setup-dotnet@v1.0.0
+      - name: Setup Gitversion
+        uses: gittools/actions/gitversion/setup@v1.1.1
+        with:
+          versionSpec: '5.12.0'
+      - name: Execute Gitversion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v1.1.1
+        with:
+          configFilePath: GitVersion.yml
+          useConfigFile: true
+      - name: Read node version
+        id: nvmrc
+        uses: browniebroke/read-nvmrc-action@v1
+      - name: Setup Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: '${{ steps.nvmrc.outputs.node_version }}'
+      - name: Install project dependencies & Firebase CLI
+        run: |
+          yarn
+          npm install -g firebase-tools
+      - name: Write google services file
+        run: |
+          cd android/app
+          echo '${{ secrets.ANDROID_GOOGLE_SERVICES }}' > google-services.json
+      - name: setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Install Fastlane
+        run: gem install fastlane -N
+      - name: Install Bundler
+        run: gem install bundler
+      - name: Bundle install
+        run: |
+          cd android
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - name: Fastlane Build
+        run: |
+          yarn android:beta
+        env:
+          VERSION_CODE: ${{ steps.version_code.outputs.number }}
+          MAJOR_VERSION: ${{ steps.gitversion.outputs.major }}
+          MINOR_VERSION: ${{ steps.gitversion.outputs.minor }}
+          PATCH_VERSION: ${{ steps.gitversion.outputs.commitsSinceVersionSource }}
+      - name: Cache gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Cache bundle packages
+        uses: actions/cache@v4
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
