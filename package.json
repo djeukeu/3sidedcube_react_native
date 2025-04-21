@@ -7,6 +7,8 @@
     "android:dev": "env-cmd -f .env.development react-native run-android",
     "android:beta": "cd ./android && bundle exec fastlane beta",
     "ios": "react-native run-ios",
+    "ios:dev": "env-cmd -f .env.development react-native run-ios",
+    "ios:beta": "cd ./ios && bundle exec fastlane beta",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "pretty": "yarn prettier --write . ",
