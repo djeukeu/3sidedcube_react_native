@@ -57,7 +57,7 @@ jobs:
           cd ios && pod install
       - name: Write google services file
         run: |
-          cd ios/patricias
+          cd ios/react_native_task
           echo '${{ secrets.IOS_GOOGLE_SERVICES }}' > GoogleService-Info.plist
       - name: Write app store key file
         run: |
