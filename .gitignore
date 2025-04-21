@@ -71,7 +71,6 @@ yarn-error.log
 google-services.json
 GoogleService-Info.plist
 signing.properties
-*.keystore
 key.json
 release-key.json
 *.p8
