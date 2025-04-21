@@ -1,24 +1,29 @@
-name: Android Beta App Deployment
-run-name: ${{ github.actor }} triggered the Android Beta Deployment
+name: iOS Beta App Deployment
+run-name: ${{ github.actor }} triggered the iOS Beta Deployment
 
 on:
   push:
     branches:
-      - develo
+      - develop
 
 env:
   APP_ENV: ${{ vars.APP_ENV }}
+  IOS_TEST_GROUPS: ${{ vars.IOS_TEST_GROUPS }}
   API_URL: ${{ secrets.API_URL }}
-  FIREBASE_ANDROID_TEST_GROUP: ${{ vars.FIREBASE_ANDROID_TEST_GROUP }}
-  PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
-  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-  FIREBASE_ANDROID_ID: ${{ secrets.FIREBASE_ANDROID_ID }}
+  IOS_PACKAGE_NAME: ${{ secrets.IOS_PACKAGE_NAME }}
+  MATCH_GIT_TOKEN: ${{ secrets.MATCH_GIT_TOKEN }}
+  MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+  MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+  APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+  APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
+  APPLE_KEY_ISSUER_ID: ${{ secrets.APPLE_KEY_ISSUER_ID }}
+  FIREBASE_IOS_ID: ${{ secrets.FIREBASE_IOS_ID }}
 
 jobs:
-  android:
+  ios:
     environment: 'STAGING'
-    name: Build Android
-    runs-on: ubuntu-24.04
+    name: Build iOS
+    runs-on: macos-14
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,11 +34,11 @@ jobs:
         run: |
           echo "::set-output name=number::$(git rev-list --count HEAD)"
       - uses: xt0rted/setup-dotnet@v1.0.0
-      - name: Setup Gitversion
+      - name: Install Gitversion
         uses: gittools/actions/gitversion/setup@v1.1.1
         with:
           versionSpec: '5.12.0'
-      - name: Execute Gitversion
+      - name: Use Gitversion
         id: gitversion
         uses: gittools/actions/gitversion/execute@v1.1.1
         with:
@@ -46,44 +51,37 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '${{ steps.nvmrc.outputs.node_version }}'
-      - name: Install project dependencies & Firebase CLI
+      - name: Install project dependencies
         run: |
           yarn
-          npm install -g firebase-tools
+          cd ios && pod install
       - name: Write google services file
         run: |
-          cd android/app
-          echo '${{ secrets.ANDROID_GOOGLE_SERVICES }}' > google-services.json
+          cd ios/patricias
+          echo '${{ secrets.IOS_GOOGLE_SERVICES }}' > GoogleService-Info.plist
+      - name: Write app store key file
+        run: |
+          cd ios
+          echo '${{ secrets.APP_STORE_API_KEY }}' > AuthKey_5FGVBZ7VQK.p8
       - name: setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
       - name: Install Fastlane
         run: gem install fastlane -N
-      - name: Install Bundler
-        run: gem install bundler
       - name: Bundle install
         run: |
-          cd android
+          cd ios
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
       - name: Fastlane Build
         run: |
-          yarn android:beta
+          yarn ios:beta
         env:
           VERSION_CODE: ${{ steps.version_code.outputs.number }}
           MAJOR_VERSION: ${{ steps.gitversion.outputs.major }}
           MINOR_VERSION: ${{ steps.gitversion.outputs.minor }}
           PATCH_VERSION: ${{ steps.gitversion.outputs.commitsSinceVersionSource }}
-      - name: Cache gradle
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
       - name: Cache bundle packages
         uses: actions/cache@v4
         with:
@@ -98,3 +96,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      - name: Cache Pods
+        uses: actions/cache@v4
+        with:
+          path: ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-

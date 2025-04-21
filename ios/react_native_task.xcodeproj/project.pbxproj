@@ -501,7 +501,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pokeapi.co;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/react_native_task.app/react_native_task";
 			};
@@ -525,7 +525,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pokeapi.co;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/react_native_task.app/react_native_task";
 			};
@@ -538,6 +538,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BWWK625M3Z;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = react_native_task/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "PokéAPI";
@@ -546,14 +547,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = "$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pokeapi.co;
-				PRODUCT_NAME = react_native_task;
+				PRODUCT_NAME = PokéAPI
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.pokeapi.co";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -566,7 +568,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = "$(VERSION_CODE)";
+				DEVELOPMENT_TEAM = BWWK625M3Z;
 				INFOPLIST_FILE = react_native_task/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "PokéAPI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
@@ -574,14 +579,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = "$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pokeapi.co;
-				PRODUCT_NAME = react_native_task;
+				PRODUCT_NAME = PokéAPI;
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.pokeapi.co";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
