@@ -1,0 +1,19 @@
+default_platform(:android)
+
+platform :android do
+
+  desc "Submit a new Beta apk for testing"
+  lane :beta do
+
+    gradle(task: "clean app:assembleRelease")
+
+    firebase_app_distribution(
+      app: ENV['FIREBASE_ANDROID_ID'],
+      groups: ENV['FIREBASE_ANDROID_TEST_GROUP'],
+      firebase_cli_token: ENV['FIREBASE_TOKEN'],
+      release_notes: "Happy Testing !!!😄",
+    )
+
+  end
+
+end
