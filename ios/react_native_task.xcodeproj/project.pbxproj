@@ -554,7 +554,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pokeapi.co;
-				PRODUCT_NAME = PokéAPI
+				PRODUCT_NAME = PokéAPI;
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.pokeapi.co";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
