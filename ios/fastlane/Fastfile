@@ -11,7 +11,7 @@ platform :ios do
   desc "Submit a new Beta apk for testing"
   lane :beta do
 
-    filename = "patricias.ipa"
+    filename = "pokeapi.ipa"
 
     api_key = app_store_connect_api_key(
       key_id: ENV["APPLE_KEY_ID"],
@@ -26,8 +26,8 @@ platform :ios do
     )
 
     build_app(
-      workspace: "patricias.xcworkspace",
-      scheme: "patricias",
+      workspace: "react_native_task.xcworkspace",
+      scheme: "react_native_task",
       clean: true,
       silent: true,
       output_directory: File.dirname(filename),
