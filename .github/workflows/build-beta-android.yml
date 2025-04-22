@@ -8,9 +8,8 @@ on:
 
 env:
   APP_ENV: ${{ vars.APP_ENV }}
-  API_URL: ${{ secrets.API_URL }}
   FIREBASE_ANDROID_TEST_GROUP: ${{ vars.FIREBASE_ANDROID_TEST_GROUP }}
-  PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
+  API_URL: ${{ secrets.API_URL }}
   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
   FIREBASE_ANDROID_ID: ${{ secrets.FIREBASE_ANDROID_ID }}
 
